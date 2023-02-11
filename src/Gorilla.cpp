@@ -31,8 +31,12 @@ Gorilla::Gorilla()
     dir = rand() % 1;
     dir = dir ? 1 : -1;
 
-    sprite_from_file(sprite, GORILLA, (sf::IntRect*)(gori_sprites));
-    sprite.scale(3.3, 3.3);
-    sprite.setTextureRect(gori_sprites[4]);
+    sprite_from_file(sprite, GORILLA, NULL);
+    // 39x48 -> 129x158
+    // 48x60 -> 129x158
+    // 48*x = 129, x=2.6875
+    sprite.scale(2.5, 2.5);
+    // sprite.scale(3.3, 3.3);
+    // sprite.setTextureRect(gori_sprites[4]);
     sprite.setPosition(rand() % 278 + 271, 80);
 }

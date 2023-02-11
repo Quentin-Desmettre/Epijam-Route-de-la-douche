@@ -26,8 +26,9 @@ Car::Car():
     t->setRepeated(true);
     m_car.setOrigin(sf::Vector2f(size.x / 8.0, size.y / 2.0));
     m_car.setPosition(sf::Vector2f(400, 500));
-    m_car.setTextureRect(sf::IntRect(0, 0, 27, 46));
-    m_car.scale(2, 2);
+    // m_car.setTextureRect(sf::IntRect(0, 0, 27, 46));
+    m_car.scale(2.5, 2.5);
+    // m_car.scale(2, 2);
     soundFromFile(_damage_sfx, DAMAGE_SFX);
     soundFromFile(_crash_sfx, CRASH_SFX);
 }
@@ -106,10 +107,10 @@ void Car::takeDamage()
     else
         _damage_sfx.play();
     _state += 1;
-    sf::IntRect r = m_car.getTextureRect();
+    // sf::IntRect r = m_car.getTextureRect();
 
-    r.left += r.width;
-    m_car.setTextureRect(r);
+    // r.left += r.width;
+    // m_car.setTextureRect(r);
 }
 
 Car::~Car()

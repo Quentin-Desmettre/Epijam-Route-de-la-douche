@@ -18,8 +18,8 @@ MainMenu::MainMenu(sf::Vector2f win_size):
     m_gor_dir(10, 10),
     m_sprite_gori(0)
 {
-    sprite_from_file(m_gorille, GORILLA, (sf::IntRect*)(gori_sprites));
-    m_gorille.scale(3.3, 3.3);
+    sprite_from_file(m_gorille, GORILLA, NULL);
+    m_gorille.scale(2.6875, 2.6875);
 
     sprite_from_file(m_play, PLAY);
     m_play.setPosition(win_size.x / 2.0, win_size.y * 0.37);
@@ -43,7 +43,7 @@ void MainMenu::move_gori(Window &win)
         m_sprite_gori++;
         if (m_sprite_gori >= 5)
             m_sprite_gori = 0;
-        m_gorille.setTextureRect(gori_sprites[m_sprite_gori]);
+        // m_gorille.setTextureRect(gori_sprites[m_sprite_gori]);
     }
     m_gorille.move(m_gor_dir);
 }
