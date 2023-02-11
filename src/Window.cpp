@@ -1,4 +1,4 @@
-#include "Window.hpp"
+#include "../include/Window.hpp"
 #include <iostream>
 
 Window::Window(sf::VideoMode mode, std::string name, sf::Uint8 style):
@@ -20,6 +20,7 @@ Window::Window(sf::VideoMode mode, std::string name, sf::Uint8 style):
 
 void Window::addSuccess(std::string const what)
 {
+    return;
     if (_ftg)
         return;
     if (std::find(m_viewed_sc.begin(), m_viewed_sc.end(), what) != m_viewed_sc.end())
@@ -65,17 +66,19 @@ void Window::drawEnemies(void)
         draw(i);
 }
 
-void Window::moveEnemies(Road &r)
+void Window::moveEnemies(Road &r, Hearts &heart, Car &car)
 {
     std::vector<std::vector<Enemy>::iterator> to_remove;
-    for (std::vector<Enemy>::iterator it = _enemies.begin();
-    it != _enemies.end(); it++) {
+    for (std::vector<Enemy>::iterator it = _enemies.begin(); it != _enemies.end(); it++) {
         (*it).update_pos(r);
         if ((*it).getPosition().y > getSize().y)
             to_remove.push_back(it);
     }
-    for (int i = 0, n = to_remove.size(); i < n; i++)
+    for (int i = 0, n = to_remove.size(); i < n; i++) {
         _enemies.erase(to_remove[i]);
+        heart.loseHeart();
+        car.takeDamage();
+    }
 }
 
 void Window::playMusic(void)

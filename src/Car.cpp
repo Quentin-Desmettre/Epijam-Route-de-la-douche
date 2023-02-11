@@ -1,6 +1,6 @@
-#include "Window.hpp"
-#include "MainMenu.hpp"
-#include "Car.hpp"
+#include "../include/Window.hpp"
+#include "../include/MainMenu.hpp"
+#include "../include/Car.hpp"
 
 #define DAMAGE_SFX "assets/sfx/crash.ogg"
 #define CRASH_SFX "assets/sfx/final_crash.ogg"

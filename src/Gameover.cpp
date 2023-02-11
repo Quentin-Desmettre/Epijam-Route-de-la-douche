@@ -5,7 +5,7 @@
 ** Gameover
 */
 
-#include "Window.hpp"
+#include "../include/Window.hpp"
 
 void init_text(sf::Text &t, std::string const name);
 

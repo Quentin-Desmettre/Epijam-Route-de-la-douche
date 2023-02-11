@@ -1,7 +1,7 @@
-#include "Road.hpp"
-#include "Car.hpp"
+#include "../include/Road.hpp"
+#include "../include/Car.hpp"
 
-void check_wall_col(Road &road, Car &car)
+void check_wall_col(Road &road, Car &car, Hearts &heart)
 {
     static bool left_col = false;
     static bool right_col = false;
@@ -9,6 +9,7 @@ void check_wall_col(Road &road, Car &car)
     if (road.getCollisionLeft(car.getSprite().getGlobalBounds())) {
         if (!left_col) {
             car.takeDamage();
+            heart.loseHeart();
             left_col = true;
         }
     } else if (car.getSprite().getPosition().x > 275)
@@ -16,6 +17,7 @@ void check_wall_col(Road &road, Car &car)
     if (road.getCollisionRight(car.getSprite().getGlobalBounds())) {
         if (!right_col) {
             car.takeDamage();
+            heart.loseHeart();
             right_col = true;
         }
     } else if (car.getSprite().getPosition().x < 525)
@@ -40,7 +42,7 @@ void check_enemy_col(Window &win, Car &car)
     for (std::vector<Enemy>::iterator it = en.begin();
     it != en.end(); it++) {
         if (it->getGlobalBounds().intersects(car.getSprite().getGlobalBounds())) {
-            car.takeDamage();
+            // car.takeDamage();
             add_enemy_success(it->getType(), win);
             en.erase(it);
             break;
@@ -60,9 +62,9 @@ void add_crash_success(Window &win, Car &car)
     win.addSuccess(s);
 }
 
-void check_car_collision(Road &road, Car &car, Window &win)
+void check_car_collision(Road &road, Car &car, Window &win, Hearts &heart)
 {
-    check_wall_col(road, car);
+    check_wall_col(road, car, heart);
     check_enemy_col(win, car);
 
     if (car.getState() == 0)

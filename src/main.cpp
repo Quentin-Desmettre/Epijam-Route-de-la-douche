@@ -1,16 +1,16 @@
-#include "Road.hpp"
-#include "Window.hpp"
-#include "MainMenu.hpp"
-#include "Gorilla.hpp"
-#include "Car.hpp"
-#include "Success.hpp"
-#include "Score.hpp"
+#include "../include/Road.hpp"
+#include "../include/Window.hpp"
+#include "../include/MainMenu.hpp"
+#include "../include/Gorilla.hpp"
+#include "../include/Car.hpp"
+#include "../include/Success.hpp"
+#include "../include/Score.hpp"
 
 void draw_game_over(Window &win, int reset);
 
-void check_car_collision(Road &road, Car &car, Window &win);
+void check_car_collision(Road &road, Car &car, Window &win, Hearts &heart);
 
-void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &car, Score &sc)
+void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &car, Score &sc, Hearts &heart)
 {
     if (ev.type == sf::Event::MouseButtonPressed) {
         if (menu.is_exit(ev) && win.stop == 0) {
@@ -28,6 +28,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
             if (win.getMode() == MAIN_MENU || car.isGameOver()) {
                 win.clearEnemies();
                 car.setState(0);
+                heart.reset();
                 r.setSpeed(5);
                 car.stop_sound();
                 car.resetDamage();
@@ -41,7 +42,7 @@ void check_menu_event(Window &win, MainMenu &menu, sf::Event &ev, Road &r, Car &
     }
 }
 
-void poll_events(Window &win, MainMenu &menu, Road &r, Car &c, Score &sc)
+void poll_events(Window &win, MainMenu &menu, Road &r, Car &c, Score &sc, Hearts &heart)
 {
     sf::Event ev;
 
@@ -60,12 +61,13 @@ void poll_events(Window &win, MainMenu &menu, Road &r, Car &c, Score &sc)
             win.stopMusic();
         }
         if (win.getMode() == MAIN_MENU || win.stop)
-            check_menu_event(win, menu, ev, r, c, sc);
+            check_menu_event(win, menu, ev, r, c, sc, heart);
         if (ev.type == sf::Event::KeyPressed && ev.key.code == sf::Keyboard::Enter && win.getMode() != MAIN_MENU && c.isGameOver()) {
             win.clearEnemies();
             c.setState(0);
             r.setSpeed(5);
             c.stop_sound();
+            heart.reset();
             c.resetDamage();
             sc.resetScore();
             win.stopMusic();
@@ -103,7 +105,7 @@ void move(Road &road, Car &car, Window &win)
         win.addSuccess("Touched the left wall");
 }
 
-void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorilla, Score &sc)
+void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorilla, Score &sc, Hearts &hearts)
 {
     win.clear(sf::Color::Black);
     road.draw(win);
@@ -112,6 +114,7 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorill
     } else {
         car.draw_to(win);
         win.drawEnemies();
+        hearts.drawTo(win);
         if (car.isGameOver())
             draw_game_over(win, 0);
     }
@@ -127,13 +130,13 @@ void draw_win(Window &win, MainMenu &menu, Road &road, Car &car, Gorilla &gorill
     win.display();
 }
 
-void move_all(Window &win, Road &road, Car &car, Gorilla &g, Score &sc)
+void move_all(Window &win, Road &road, Car &car, Gorilla &g, Score &sc, Hearts &hearts)
 {
     if (win.getMode() != MAIN_MENU && !car.isGameOver()) {
-        check_car_collision(road, car, win);
+        check_car_collision(road, car, win, hearts);
         move(road, car, win);
-        g.move(win);
-        win.moveEnemies(road);
+        g.move(win, road.getSpeed());
+        win.moveEnemies(road, hearts, car);
         if (sc.msElapsed().asMilliseconds() > 75) {
             sc.restartClock();
             sc.addScore(road.getSpeed());
@@ -155,6 +158,7 @@ int main(int ac, char **av)
     Road road(win);
     Car car;
     Gorilla gorilla;
+    Hearts hearts;
     Score sc(win.getSize().x * 0.03, win.getSize().y * 0.85);
 
     if (ac == 2 && av[1] == std::string("tg"))
@@ -163,9 +167,9 @@ int main(int ac, char **av)
     win.addSuccess("First success");
     while (win.isOpen()) {
         if (win.stop == 0)
-            move_all(win, road, car, gorilla, sc);
-        poll_events(win, menu, road, car, sc);
-        draw_win(win, menu, road, car, gorilla, sc);
+            move_all(win, road, car, gorilla, sc, hearts);
+        poll_events(win, menu, road, car, sc, hearts);
+        draw_win(win, menu, road, car, gorilla, sc, hearts);
     }
     return 0;
 }

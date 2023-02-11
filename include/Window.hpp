@@ -3,11 +3,15 @@
     #define WINDOW_HPP
     #include <SFML/Window.hpp>
     #include <SFML/Graphics.hpp>
-    #include "SFML/Audio.hpp"
+    #include "../include/SFML/Audio.hpp"
     #include <string>
-    #include "Success.hpp"
+    #include "../include/Success.hpp"
     #include <list>
-    #include "Enemy.hpp"
+    #include "../include/Enemy.hpp"
+    #include "../include/Car.hpp"
+
+
+class Hearts;
 
 typedef enum {MAIN_MENU, PLAY} win_mode;
 
@@ -43,7 +47,7 @@ public:
 
     void addEnemy(int type, float x_start);
     void drawEnemies(void);
-    void moveEnemies(Road &r);
+    void moveEnemies(Road &r, Hearts &heart, Car &car);
     void clearEnemies(void) {_enemies.clear();}
     std::vector<Enemy> &getEnemies() {return _enemies;}
 
@@ -55,6 +59,56 @@ public:
     void fart();
 
     ~Window();
+};
+
+
+class Hearts {
+public:
+    Hearts() {
+        _nbHearts = 4;
+        _heart.loadFromFile("assets/heart.png");
+        _heartSprite.setTexture(_heart);
+        _emptyHeart.loadFromFile("assets/empty_heart.png");
+        _emptyHeartSprite.setTexture(_emptyHeart);
+
+        _heartSprite.setScale(0.23, 0.23);
+        _emptyHeartSprite.setScale(0.23, 0.23);
+    }
+    ~Hearts() = default;
+
+    void drawTo(Window &win) {
+        for (int j = 0; j < 4; j++) {
+            if (j < _nbHearts) {
+                _heartSprite.setPosition(10 + j * 50, 10);
+                win.draw(_heartSprite);
+            } else {
+                _emptyHeartSprite.setPosition(10 + j * 50, 10);
+                win.draw(_emptyHeartSprite);
+            }
+        }
+    }
+    void loseHeart() {
+        _nbHearts--;
+        if (_nbHearts < 0)
+            _nbHearts = 0;
+    }
+    void addHeart() {
+        _nbHearts++;
+        if (_nbHearts > 4)
+            _nbHearts = 4;
+    }
+    void reset() {
+        _nbHearts = 4;
+    }
+    int getNbHearts() const {
+        return _nbHearts;
+    }
+
+private:
+    int _nbHearts;
+    sf::Texture _heart, _emptyHeart;
+    sf::Sprite _heartSprite;
+    sf::Sprite _emptyHeartSprite;
 };
 
 #endif

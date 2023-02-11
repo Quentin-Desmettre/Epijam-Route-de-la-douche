@@ -2,7 +2,7 @@
 #define A86AF258_F568_4D1A_A9BC_16CB1BA4632E
 
 #include <SFML/Graphics.hpp>
-#include "Window.hpp"
+#include "../include/Window.hpp"
 
 class Score : public sf::Text
 {

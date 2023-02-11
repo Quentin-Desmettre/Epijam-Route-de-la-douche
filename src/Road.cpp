@@ -1,5 +1,5 @@
-#include "Road.hpp"
-#include "MainMenu.hpp"
+#include "../include/Road.hpp"
+#include "../include/MainMenu.hpp"
 #define BACK "assets/images/env/building.png"
 #define ROAD "assets/images/env/road.png"
 
@@ -14,7 +14,7 @@ void Road::move_back()
     rect_l.left += _speed;
     rect_r.left -= _speed;
     if (_speed < 15)
-        _speed += 0.001;
+        _speed += 0.002;
     _sprite.setTextureRect(_rect);
     back_l.setTextureRect(rect_l);
     back_r.setTextureRect(rect_r);

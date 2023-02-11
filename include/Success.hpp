@@ -1,7 +1,7 @@
 #ifndef SUCCESS_HPP
 #define SUCCESS_HPP
 
-#include "Window.hpp"
+#include "../include/Window.hpp"
 #include <SFML/Audio.hpp>
 
 class Window;

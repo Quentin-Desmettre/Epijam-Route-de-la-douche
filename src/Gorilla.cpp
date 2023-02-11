@@ -1,14 +1,14 @@
-#include "Window.hpp"
-#include "Gorilla.hpp"
-#include "MainMenu.hpp"
+#include "../include/Window.hpp"
+#include "../include/Gorilla.hpp"
+#include "../include/MainMenu.hpp"
 
 #define GORILLA "assets/images/enemies/gorillas.png"
 
-void Gorilla::_move()
+void Gorilla::_move(float speed)
 {
-    if (sprite.getPosition().x <= 270 || sprite.getPosition().x >= 550 || rand() % 80 == 0)
+    if (sprite.getPosition().x <= 270 || sprite.getPosition().x >= 550 || rand() % 45 == 0)
         dir = -dir;
-    sprite.move(2.5 * dir, 0);
+    sprite.move(speed * 0.8 * dir, 0);
 }
 
 void Gorilla::draw(Window &win)
@@ -16,12 +16,12 @@ void Gorilla::draw(Window &win)
     win.draw(sprite);
 }
 
-void Gorilla::move(Window &win)
+void Gorilla::move(Window &win, float speed)
 {
-    _move();
+    _move(speed);
     if (_place_clock.getElapsedTime() > _time_place) {
         win.addEnemy(rand() % 3, sprite.getPosition().x);
-        _time_place = sf::milliseconds(rand() % 1500 + 500);
+        _time_place = sf::milliseconds(rand() % 750 + 500);
         _place_clock.restart();
     }
 }

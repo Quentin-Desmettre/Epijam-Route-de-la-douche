@@ -1,5 +1,5 @@
-#include "Success.hpp"
-#include "MainMenu.hpp"
+#include "../include/Success.hpp"
+#include "../include/MainMenu.hpp"
 #include <iostream>
 #define BOX_SPRITE "assets/images/achievements/achievement_box.png"
 #define FONT "assets/fonts/Minecraft.ttf"

@@ -1,5 +1,5 @@
-#include "MainMenu.hpp"
-#include "Window.hpp"
+#include "../include/MainMenu.hpp"
+#include "../include/Window.hpp"
 
 #define GORILLA "assets/images/enemies/gorillas.png"
 #define PLAY "assets/images/main_menu/start.png"

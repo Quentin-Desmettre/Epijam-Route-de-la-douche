@@ -1,6 +1,6 @@
 #ifndef MAIN_MENU_H
     #define MAIN_MENU_H
-    #include "Window.hpp"
+    #include "../include/Window.hpp"
 
 static const sf::IntRect gori_sprites[5] {
     {5, 0, 39, 48},

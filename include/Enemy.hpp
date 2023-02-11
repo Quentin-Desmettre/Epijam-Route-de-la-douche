@@ -5,8 +5,8 @@
 #define ENTREPRENEUR 1
 #define BANANA 2
 
-#include "MainMenu.hpp"
-#include "Road.hpp"
+#include "../include/MainMenu.hpp"
+#include "../include/Road.hpp"
 
 class Road;
 

@@ -4,7 +4,7 @@
 
     #include <SFML/Window.hpp>
     #include <SFML/Graphics.hpp>
-    #include "Window.hpp"
+    #include "../include/Window.hpp"
 
 class Road {
     private:

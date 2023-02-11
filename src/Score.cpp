@@ -1,4 +1,4 @@
-#include "Score.hpp"
+#include "../include/Score.hpp"
 
 //void sprite_from_file(sf::Sprite &s, std::string file, sf::IntRect *rect = nullptr);
 
