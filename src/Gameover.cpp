@@ -14,15 +14,15 @@ void load_text(sf::Text &t, std::string const name);
 #define NB_QUOTE 10
 
 static const char *quotes[NB_QUOTE] =
-{"Believe, croire en nos reves !",
+{"Qui a péte ?",
 "Never (gonna) give (you) up",
-"You did it !",
+"Le mardi Kfc est pas bien passe >(",
 "Be you, be proud of you, because you can be do what we want to do.",
-"Just do it !",
-"Yes you can !",
-"The road of success is always under construction.",
-"Whatever you do, always give 100%... Unless you're donating blood...",
-"J'ai couru jusqu'a quand ce que je pouvais.",
+"slide 7 du diapo, 'prenez des douches' ",
+"c'est pas drole les gars ca pue !!!",
+"Pourquoi j'ai pas le covid :'(",
+"ca pue trop je me casse",
+"J'ai couru mais l'odeur m'as rattrappé.",
 "La pomme ne tombe jamais loin du pommier"};
 
 void draw_game_over(Window &win, int reset)

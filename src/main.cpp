@@ -5,6 +5,8 @@
 #include "../include/Car.hpp"
 #include "../include/Success.hpp"
 #include "../include/Score.hpp"
+#include <unistd.h>
+#include <time.h>
 
 void draw_game_over(Window &win, int reset);
 
@@ -147,12 +149,14 @@ void move_all(Window &win, Road &road, Car &car, Gorilla &g, Score &sc, Hearts &
             }
         }
     }
-    if (!car.isGameOver() || win.getMode() == MAIN_MENU)
+    if (!car.isGameOver() || win.getMode() == MAIN_MENU) {
         road.move_back();
+    }
 }
 
 int main(int ac, char **av)
 {
+    srand(time(NULL) % 100);
     Window win(sf::VideoMode(800, 600), "Route du succes", sf::Style::Close | sf::Style::Resize);
     MainMenu menu(sf::Vector2f(800, 600));
     Road road(win);
@@ -166,8 +170,10 @@ int main(int ac, char **av)
     win.addSuccess("Launched the game");
     win.addSuccess("First success");
     while (win.isOpen()) {
-        if (win.stop == 0)
+        if (win.stop == 0){
             move_all(win, road, car, gorilla, sc, hearts);
+        }
+
         poll_events(win, menu, road, car, sc, hearts);
         draw_win(win, menu, road, car, gorilla, sc, hearts);
     }
