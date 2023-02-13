@@ -39,6 +39,7 @@ Road::Road(Window &win)
     back_l.setRotation(-90);
     back_l.setPosition(-20, 485 * 1.25);
     back_l.setScale(1.25, 1.25);
+    back_l.setColor(sf::Color(150, 255, 150));
 
     back_r = back_l;
 
@@ -48,6 +49,7 @@ Road::Road(Window &win)
     rect_r.left += 50;
     back_r.setTextureRect(rect_r);
 
+
     _rect = sf::IntRect(0, 0, 283, 922);
     _texture.loadFromFile(ROAD);
     _texture.setRepeated(true);
@@ -55,6 +57,7 @@ Road::Road(Window &win)
     _sprite.setTextureRect(_rect);
     _sprite.setScale(1.25, 1.25);
     _sprite.setPosition(195 * 1.25 - 20, 0);
+    _sprite.setColor(sf::Color(50, 100, 50));
 
     _speed = 5;
 }

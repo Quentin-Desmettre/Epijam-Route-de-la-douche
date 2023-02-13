@@ -32,7 +32,7 @@ void add_enemy_success(int type, Window &win)
     else if (type == 1)
         s += "an entrepreneur";
     else
-        s += "a banana";
+        s += "a bat";
     win.addSuccess(s);
 }
 
@@ -64,7 +64,8 @@ void add_crash_success(Window &win, Car &car)
 
 void check_car_collision(Road &road, Car &car, Window &win, Hearts &heart)
 {
-    check_wall_col(road, car, heart);
+    (void)heart;
+    (void)road;
     check_enemy_col(win, car);
 
     if (car.getState() == 0)
