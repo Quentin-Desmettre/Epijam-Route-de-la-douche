@@ -1,7 +1,7 @@
 #include "../include/Enemy.hpp"
-#define PLOT_PNG "assets/images/enemies/cone.png"
+#define PLOT_PNG "assets/images/enemies/banana.png"
 #define ENTREPRENEUR_PNG "assets/images/enemies/entrepreneur.png"
-#define BANANA_PNG "assets/images/enemies/banana.png"
+#define BANANA_PNG "assets/images/enemies/bat.png"
 
 static const sf::Texture *textures[3] = {
     from_file(PLOT_PNG),
